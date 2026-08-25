@@ -1,0 +1,7 @@
+{
+  "name": "jaccozilla-plugins",
+  "owner": { "name": "jaccozilla" },
+  "plugins": [
+    { "name": "spec-coverage", "source": "./spec-coverage" }
+  ]
+}
