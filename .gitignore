@@ -1,2 +1,5 @@
 ### macOS Specific Ignores ###
 .DS_Store
+
+### IDE ###
+.idea/
