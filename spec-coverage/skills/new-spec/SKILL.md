@@ -1,0 +1,80 @@
+---
+name: new-spec
+description: Draft a new markdown spec file for a project using the gradle-plugins "spec-coverage" convention plugin, using the project's page/screen or workflow template. Use when the user asks to add, write, draft, or scaffold a new spec — for a new screen, a new user flow, or a new piece of product behavior — before an implementing test exists.
+---
+
+# Draft a new spec
+
+This skill pairs with the `spec-coverage` Gradle convention plugin
+(`gradle-plugins/spec-coverage`) and the [[reconcile-e2e-specs]] skill. Use
+this skill to scaffold a brand-new spec file from scratch; use
+`reconcile-e2e-specs` afterward (or whenever a `verifySpecCoverage` failure
+points at this new file) to draft the implementing test.
+
+**This skill doesn't hardcode any project's directory layout.** Before
+writing anything, find the actual configuration:
+
+1. Search the project for `id("spec-coverage")` (usually in a module's
+   `build.gradle.kts`) and read that module's `specCoverage { }` block —
+   this tells you the real `specsDir` and whether the project uses
+   per-target scoping at all (some projects build for a single target and
+   never use `targets:` front matter).
+2. Read a handful of existing spec files under `specsDir` to learn the
+   project's real conventions: how specs are organized into subdirectories
+   (many projects split `pages/` vs `workflows/`, but naming varies), the
+   `@Spec` id format (usually the spec's path relative to `specsDir`, minus
+   `.md`), whether `targets:` front matter is used and what values it takes,
+   and whether specs use inline per-bullet test references (a trailing
+   `` (`<TestFile.kt>`: `<test function name>`) `` after each sentence/
+   bullet) — the format this skill's templates default to — or a different
+   established convention.
+
+## Step 1: Classify the spec
+
+Ask the user (if not already obvious from what they're describing) whether
+this is:
+
+- **A page/screen spec** — what a single view shows for a given state. Use
+  `templates/page-spec.md`.
+- **A workflow spec** — a multi-step/cross-screen user flow. Use
+  `templates/workflow-spec.md`.
+
+If the project's existing specs are split into subdirectories by type (e.g.
+`pages/` / `workflows/`), that split determines both which template to use
+and where the new file goes.
+
+## Step 2: Fill in the template
+
+Specs read like product requirements, not test transcripts:
+
+- A **page spec** is a content inventory — bullets naming what the view
+  includes — plus, if the project keeps design mockups somewhere, a link to
+  the matching one. Not interactions, not layout details — what's present.
+- A **workflow spec** is a title plus a 1-2 sentence capability statement
+  (e.g. "A user can submit a rating for an attribute with no existing data,
+  and see the results reflect a real score afterward.") plus, optionally, a
+  short bullet list of further plain-language acceptance criteria for
+  distinct sub-behaviors or edge cases. Never a click-by-click Given/When/
+  Then walkthrough, never button-label-exact step numbering.
+
+Copy the matching template, replace every placeholder with real content
+distilled from what the user asked for, and drop `targets:` front matter
+entirely if the project doesn't use it (don't leave it as an empty or
+placeholder value). If the implementing test doesn't exist yet, leave the
+inline test reference off each bullet rather than inventing one — an
+unimplemented spec is exactly what `verifySpecCoverage` and
+`reconcile-e2e-specs` are for.
+
+## Step 3: Name and place the file
+
+Derive the spec id the same way the project's existing specs do (usually a
+slug of the title, placed under whichever subdirectory matches its type).
+Write it to `<specsDir>/<id>.md`. Don't overwrite an existing spec file
+without confirming with the user first.
+
+## Step 4: Report
+
+Show the user the drafted spec (or its path, if written directly), note
+whether it has an implementing test yet, and — if not — mention that running
+`reconcile-e2e-specs` (or the project's `verifySpecCoverage` task) is the
+next step to get one drafted. Don't commit anything yourself unless asked.
