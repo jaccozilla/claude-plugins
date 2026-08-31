@@ -15,7 +15,8 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
     missing spec for a test, and flags specs whose description has drifted
     from what the test actually does.
   - `skills/new-spec/SKILL.md` — scaffolds a brand-new spec file from a
-    page/screen or workflow template, before an implementing test exists.
+    page/screen, workflow, or component template, before an implementing
+    test exists.
 
 ## Consuming this marketplace
 

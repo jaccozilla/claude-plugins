@@ -48,7 +48,15 @@ acceptance criteria — never a click-by-click Given/When/Then walkthrough,
 never button-label-exact step numbering. A page/screen-style spec (what a
 single view shows for a given state) is a content inventory — bullets
 naming what it includes — plus, if the project keeps design mockups
-somewhere, an optional link to the matching one.
+somewhere, an optional link to the matching one. A component-style spec (a
+reusable piece of UI shared across more than one page or workflow) is a
+content inventory like a page spec, but scoped to the component in
+isolation — its bullets (including any distinct interactive states, e.g.
+empty/loading/error) must each be checkable by mounting the component on
+its own, not just observable through a page test that happens to embed it.
+A page or workflow spec that embeds a shared component references that
+component's spec inline from the bullet describing where it appears, rather
+than duplicating the component's own content inventory.
 
 **Prefer inline test references over a single list at the end.** Attach
 `` (`<TestFile.kt>`: `<test function name>`) `` directly after the
@@ -94,8 +102,11 @@ content inventory, acceptance bullets and their inline test references) and:
    shared test utilities). The spec's capability statement is a one-sentence
    summary of the whole test, not a literal step to transcribe — invent the
    concrete mechanics the same way the existing tests do. A workflow spec's
-   acceptance bullets each usually map to one `@Test fun`; a page spec's
-   content-inventory bullets usually map to assertions within a single test.
+   acceptance bullets each usually map to one `@Test fun`; a page or
+   component spec's content-inventory bullets usually map to assertions
+   within a single test — for a component spec, that test mounts the
+   component standalone rather than the full page/app it's normally
+   embedded in, if the project's test setup supports that.
 3. Add `@Spec("<id>")` on the specific `@Test fun` (never on the class), and
    add or fix the inline reference on whichever sentence/bullet this test
    backs — don't leave a bullet with no reference, or a stale one pointing
@@ -109,8 +120,10 @@ For each `@Spec("<id>")` the coverage check flagged as referencing a
 nonexistent file (and it isn't just a typo — check the "did you mean" hint
 the task prints first), read the implementing test and draft the spec file
 at `<specsDir>/<id>.md`. Classify it the same way the project's existing
-specs are classified (page/screen content-inventory vs. workflow capability
-statement — see the discovery step above), distilling the test's
+specs are classified (page/screen content-inventory, workflow capability
+statement, or — if the test mounts a reusable piece of UI standalone rather
+than a full page — component content-inventory; see the discovery step
+above), distilling the test's
 *product-level behavior*, not its mechanics — leave out exact button
 labels, test tags, seeded ids, and step counts; those belong in the code,
 not the spec. Attach the inline test reference directly to the

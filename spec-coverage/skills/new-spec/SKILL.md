@@ -1,6 +1,6 @@
 ---
 name: new-spec
-description: Draft a new markdown spec file for a project using the gradle-plugins "spec-coverage" convention plugin, using the project's page/screen or workflow template. Use when the user asks to add, write, draft, or scaffold a new spec — for a new screen, a new user flow, or a new piece of product behavior — before an implementing test exists.
+description: Draft a new markdown spec file for a project using the gradle-plugins "spec-coverage" convention plugin, using the project's page/screen, workflow, or component template. Use when the user asks to add, write, draft, or scaffold a new spec — for a new screen, a new user flow, a new reusable UI component, or a new piece of product behavior — before an implementing test exists.
 ---
 
 # Draft a new spec
@@ -21,13 +21,13 @@ writing anything, find the actual configuration:
    never use `targets:` front matter).
 2. Read a handful of existing spec files under `specsDir` to learn the
    project's real conventions: how specs are organized into subdirectories
-   (many projects split `pages/` vs `workflows/`, but naming varies), the
-   `@Spec` id format (usually the spec's path relative to `specsDir`, minus
-   `.md`), whether `targets:` front matter is used and what values it takes,
-   and whether specs use inline per-bullet test references (a trailing
-   `` (`<TestFile.kt>`: `<test function name>`) `` after each sentence/
-   bullet) — the format this skill's templates default to — or a different
-   established convention.
+   (many projects split `pages/` vs `workflows/` vs `components/`, but
+   naming varies), the `@Spec` id format (usually the spec's path relative
+   to `specsDir`, minus `.md`), whether `targets:` front matter is used and
+   what values it takes, and whether specs use inline per-bullet test
+   references (a trailing `` (`<TestFile.kt>`: `<test function name>`) ``
+   after each sentence/bullet) — the format this skill's templates default
+   to — or a different established convention.
 
 ## Step 1: Classify the spec
 
@@ -38,10 +38,20 @@ this is:
   `templates/page-spec.md`.
 - **A workflow spec** — a multi-step/cross-screen user flow. Use
   `templates/workflow-spec.md`.
+- **A component spec** — a reusable piece of UI shared across more than one
+  page or workflow (e.g. a header, a search popup, a nav bar), described so
+  it's testable in isolation from any page that embeds it. Use
+  `templates/component-spec.md`.
 
 If the project's existing specs are split into subdirectories by type (e.g.
-`pages/` / `workflows/`), that split determines both which template to use
-and where the new file goes.
+`pages/` / `workflows/` / `components/`), that split determines both which
+template to use and where the new file goes.
+
+A page or workflow spec that includes a shared component should reference
+that component's spec inline, from the bullet describing where it appears
+(e.g. "A site header showing the logo and nav links (see
+`components/header.md`)") — never the reverse; a component spec doesn't
+list which pages use it.
 
 ## Step 2: Fill in the template
 
@@ -56,6 +66,12 @@ Specs read like product requirements, not test transcripts:
   short bullet list of further plain-language acceptance criteria for
   distinct sub-behaviors or edge cases. Never a click-by-click Given/When/
   Then walkthrough, never button-label-exact step numbering.
+- A **component spec** is a content inventory like a page spec, but scoped
+  to the component in isolation — bullets naming what it renders and, if it
+  has distinct interactive states (e.g. empty/loading/error, open/closed,
+  selected/unselected), a bullet per state. Every bullet must describe
+  something checkable by mounting the component on its own — not something
+  only observable incidentally through a page that happens to embed it.
 
 Copy the matching template, replace every placeholder with real content
 distilled from what the user asked for, and drop `targets:` front matter
