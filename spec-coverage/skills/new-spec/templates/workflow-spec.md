@@ -13,6 +13,9 @@ the file.
 - Each bullet gets its inline test reference once the implementing test
   exists — leave it off (or write `(unimplemented)`) if drafting the spec
   ahead of the test.
+- Add a "Variants/states" section (see below) only if this flow genuinely
+  plays out differently in distinct situations — e.g. narrow vs wide — not
+  for every possible screen size.
 -->
 ---
 targets: [<target-a>, <target-b>]
@@ -28,3 +31,19 @@ and see the results reflect a real score afterward."> (`<TestFile.kt>`:
 - <An additional acceptance bullet for a distinct sub-behavior or edge
   case, if any> (`<TestFile.kt>`: `<test function name>`)
 - <Another, if any>
+
+<!--
+## Variants/states
+
+Only if this workflow genuinely plays out differently between distinct
+situations (not just a reflow) — e.g. a narrow-viewport flow that swaps a
+dialog for a full-screen step. Each bullet MUST start with a short id in
+bold (`- **<id>** — ...`); if the project's spec-coverage plugin supports
+variant checking (see `reconcile-e2e-specs`), `verifySpecCoverage` fails
+the build unless every id here has at least one `@Spec("<this spec's id>",
+variant = "<id>")` test. Delete this whole section (including this
+comment) if it doesn't apply.
+
+- **<id>** — <what differs in this variant> (`<TestFile.kt>`: `<test
+  function name>`)
+-->

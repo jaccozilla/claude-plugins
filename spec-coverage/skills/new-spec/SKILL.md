@@ -28,6 +28,14 @@ writing anything, find the actual configuration:
    references (a trailing `` (`<TestFile.kt>`: `<test function name>`) ``
    after each sentence/bullet) — the format this skill's templates default
    to — or a different established convention.
+3. Check whether the project's `@Spec` annotation (usually near
+   `specsDir`'s consuming test source set, e.g. `Spec.kt`) has a `variant`
+   parameter, and whether `VerifySpecCoverageTask` in that project's
+   `spec-coverage` plugin version parses `## Variants/states` bullets and
+   the `variant =` param — some projects are on an older plugin version
+   without this. If so, `verifySpecCoverage` mechanically enforces that
+   every variant/state id a spec declares has at least one covering test —
+   see the "Variants/states" guidance below and in `reconcile-e2e-specs`.
 
 ## Step 1: Classify the spec
 
@@ -42,6 +50,12 @@ this is:
   page or workflow (e.g. a header, a search popup, a nav bar), described so
   it's testable in isolation from any page that embeds it. Use
   `templates/component-spec.md`.
+
+Any of the three may also carry a `## Variants/states` section when the
+page/workflow/component genuinely renders or behaves differently between
+distinct situations (narrow vs wide layout, empty/loading/error, open vs
+closed) — not for every possible screen size or a transient loading
+flicker. See "Variants/states" below.
 
 If the project's existing specs are split into subdirectories by type (e.g.
 `pages/` / `workflows/` / `components/`), that split determines both which
@@ -80,6 +94,22 @@ placeholder value). If the implementing test doesn't exist yet, leave the
 inline test reference off each bullet rather than inventing one — an
 unimplemented spec is exactly what `verifySpecCoverage` and
 `reconcile-e2e-specs` are for.
+
+### Variants/states
+
+If the project's `VerifySpecCoverageTask` supports variant checking (see
+the discovery step above), every bullet under `## Variants/states` MUST start with a
+short id in bold — `- **narrow** — collapses to a single trigger row.` —
+because `verifySpecCoverage` will fail the build unless at least one test
+carries `@Spec("<this spec's id>", variant = "<id>")` for each id declared
+there. Pick ids that read naturally as that string: short, lowercase, no
+spaces (`narrow`/`wide`, `loading`/`error`/`empty`), not full sentences.
+Each template has this section commented out (page/workflow) or present
+(component, since it's the common case there) — include it only when the
+behavior genuinely diverges, and delete it entirely otherwise. If the
+implementing tests don't exist yet, the section is still fine to write —
+`verifySpecCoverage`/`reconcile-e2e-specs` will surface the gap the same
+way an unimplemented spec does.
 
 ## Step 3: Name and place the file
 
