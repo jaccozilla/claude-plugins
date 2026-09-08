@@ -48,6 +48,11 @@ find the actual configuration:
    Both must be true for variant coverage checking to be live in this
    project — an older `spec-coverage` plugin version, or a project that
    hasn't adopted the convention yet, won't have either.
+5. Check whether the project keeps a directory of reusable UI/behavior
+   pattern docs (e.g. a `docs/patterns/` folder — name varies by project;
+   a top-level agent-instructions file like `CLAUDE.md` often names its
+   doc directories). If one exists, keep it in mind for Step 3, where a
+   freshly-drafted spec should be checked against it.
 
 ## Specs read like product requirements, not test transcripts
 
@@ -150,6 +155,16 @@ above), distilling the test's
 labels, test tags, seeded ids, and step counts; those belong in the code,
 not the spec. Attach the inline test reference directly to the
 sentence/bullet it backs.
+
+If the project has a pattern-docs directory (see the discovery step
+above), check the drafted spec against anything relevant there before
+finishing — does the test's behavior actually follow the project's
+established convention (keyboard navigation, narrow/wide layout, etc.),
+or does this component/page diverge from it? Note a genuine divergence in
+the spec bullet itself rather than writing prose that reads as if no
+pattern existed; if the divergence looks unintentional rather than a
+deliberate choice, flag it to the user instead of quietly documenting it
+as normal.
 
 ## Step 4: targets: mismatch — fix whichever side is stale
 

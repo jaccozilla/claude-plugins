@@ -36,6 +36,19 @@ writing anything, find the actual configuration:
    without this. If so, `verifySpecCoverage` mechanically enforces that
    every variant/state id a spec declares has at least one covering test —
    see the "Variants/states" guidance below and in `reconcile-e2e-specs`.
+4. Check whether the project keeps a directory of reusable UI/behavior
+   pattern docs (e.g. a `docs/patterns/` folder — the name varies by
+   project, so look for whatever this project's own docs structure calls
+   it; a project's top-level agent-instructions file, e.g. `CLAUDE.md`,
+   often names its doc directories). If one exists, skim it for anything
+   relevant to what this spec describes (a keyboard-navigable input, a
+   narrow/wide layout variant, an empty/loading/error convention, etc.)
+   before writing a word of the spec — see Step 2.
+
+If discovery turns up an established pattern the new component/page/
+workflow should follow but the implementation doesn't yet, say so plainly
+in your report (Step 4) rather than silently writing a spec that describes
+non-conforming behavior as if it were intentional.
 
 ## Step 1: Classify the spec
 
@@ -86,6 +99,17 @@ Specs read like product requirements, not test transcripts:
   selected/unselected), a bullet per state. Every bullet must describe
   something checkable by mounting the component on its own — not something
   only observable incidentally through a page that happens to embed it.
+
+If the discovery step found a relevant pattern doc, hold what you're
+about to write against it before finalizing: does this component/page
+follow the same convention (e.g. the project's established keyboard-
+navigation model, its narrow/wide layout rules), or does it diverge? A
+deliberate, reasoned divergence is fine — note it in the spec bullet
+itself (e.g. "Tab moves focus normally, unlike the project's usual
+list-navigation pattern, because ...") — but don't write a spec that
+silently describes inconsistent behavior as if no pattern existed, and
+don't force conformance to a pattern that genuinely doesn't fit without
+flagging the mismatch to the user first.
 
 Copy the matching template, replace every placeholder with real content
 distilled from what the user asked for, and drop `targets:` front matter
