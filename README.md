@@ -17,6 +17,12 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
   - `skills/new-spec/SKILL.md` — scaffolds a brand-new spec file from a
     page/screen, workflow, or component template, before an implementing
     test exists.
+- `design-system/` — skills for generating and applying Material 3 color
+  schemes.
+  - `skills/build-color-scheme/SKILL.md` — generates a full Material 3
+    light/dark color scheme from a seed color or an image via the
+    [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
+    web tool, then applies it into the project's own theme file.
 
 ## Consuming this marketplace
 
@@ -25,6 +31,7 @@ From any project (or globally), in Claude Code:
 ```
 /plugin marketplace add jaccozilla/claude-plugins
 /plugin install spec-coverage@jaccozilla-plugins
+/plugin install design-system@jaccozilla-plugins
 ```
 
 While iterating locally (both repos checked out as siblings), you can point at the local path instead so edits take effect without a git round-trip:

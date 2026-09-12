@@ -2,6 +2,7 @@
   "name": "jaccozilla-plugins",
   "owner": { "name": "jaccozilla" },
   "plugins": [
-    { "name": "spec-coverage", "source": "./spec-coverage" }
+    { "name": "spec-coverage", "source": "./spec-coverage" },
+    { "name": "design-system", "source": "./design-system" }
   ]
 }
