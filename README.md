@@ -17,6 +17,11 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
   - `skills/new-spec/SKILL.md` — scaffolds a brand-new spec file from a
     page/screen, workflow, or component template, before an implementing
     test exists.
+  - `skills/track-deferred-work/SKILL.md` — records work the user
+    explicitly defers as a file in the project's deferred-work directory
+    (e.g. `docs/todo/`), surfaces a stale entry once its blocking
+    condition resolves, and — only with explicit user sign-off — files a
+    stuck failing test under a `test-failures/` subdirectory.
 - `design-system/` — skills for generating and applying Material 3 color
   schemes.
   - `skills/build-color-scheme/SKILL.md` — generates a full Material 3
