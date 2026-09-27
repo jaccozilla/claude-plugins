@@ -1,7 +1,7 @@
 {
   "name": "spec-coverage",
-  "description": "Skills for maintaining markdown-spec-driven e2e tests linked via @Spec annotations, paired with the gradle-plugins spec-coverage plugin's verifySpecCoverage task",
-  "version": "0.2.0",
+  "description": "Skills for maintaining markdown-spec-driven e2e tests linked via @Spec annotations, paired with the gradle-plugins spec-coverage plugin's verifySpecCoverage task, plus tracking explicitly deferred work in a docs/todo-style directory",
+  "version": "0.3.0",
   "author": {
     "name": "Jake Walsh"
   }
