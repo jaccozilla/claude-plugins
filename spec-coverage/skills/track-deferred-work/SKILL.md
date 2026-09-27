@@ -56,9 +56,13 @@ stuck) and ask the user how they want to proceed. Never classify it as
 out-of-scope or acceptable yourself.
 
 Only if the user explicitly agrees to defer it, record it as a
-deferred-work item using the same file format above: what's failing, why
-it's failing (the real cause, not "flaky"), and what fixing it would
-require. Don't create this file — or otherwise treat a failing test as
-"noted for later" — without that explicit go-ahead; a deferred-work entry
-is not a substitute for asking. Do not report the task as complete while
-the test is still failing, deferred or not.
+deferred-work item in a `test-failures/` subdirectory of the deferred-work
+directory (e.g. `docs/todo/test-failures/`, creating it if it doesn't
+exist yet) — kept separate from other deferred work so a scan of that
+subdirectory alone shows every test currently allowed to fail. Same file
+format as above: what's failing, why it's failing (the real cause, not
+"flaky"), and what fixing it would require. Don't create this file — or
+otherwise treat a failing test as "noted for later" — without that
+explicit go-ahead; a deferred-work entry is not a substitute for asking.
+Do not report the task as complete while the test is still failing,
+deferred or not.
