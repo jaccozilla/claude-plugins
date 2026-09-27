@@ -1,6 +1,6 @@
 ---
 name: track-deferred-work
-description: Record work the user explicitly defers ("do that later", "not now", "note it for when X happens") as a file in the project's deferred-work directory, instead of letting it evaporate once the conversation moves on. Also surfaces a stale deferred-work entry when starting new work that just resolved its blocking condition. Use whenever the user defers something rather than dropping it, or when starting a task that might unblock previously deferred work.
+description: Record work the user explicitly defers ("do that later", "not now", "note it for when X happens") as a file in the project's deferred-work directory, instead of letting it evaporate once the conversation moves on. Also covers a stuck failing test — prompt the user before recording it as deferred, never do so silently — and surfacing a stale deferred-work entry when starting new work that just resolved its blocking condition. Use whenever the user defers something rather than dropping it, when a test failure can't be fixed and needs the user's decision, or when starting a task that might unblock previously deferred work.
 ---
 
 # Track deferred work
@@ -45,3 +45,20 @@ than leaving it stale.
 
 Delete the file once the deferred work is actually done, in the same
 change that does it.
+
+## Failing tests are not deferrable on your own judgment
+
+A failing test is never something to quietly leave for later. If, after
+real fix attempts, a failure remains — including a pre-existing one you
+didn't cause, and including one that looks environment/harness-related —
+name it explicitly (test class/name, what you tried, and why you're
+stuck) and ask the user how they want to proceed. Never classify it as
+out-of-scope or acceptable yourself.
+
+Only if the user explicitly agrees to defer it, record it as a
+deferred-work item using the same file format above: what's failing, why
+it's failing (the real cause, not "flaky"), and what fixing it would
+require. Don't create this file — or otherwise treat a failing test as
+"noted for later" — without that explicit go-ahead; a deferred-work entry
+is not a substitute for asking. Do not report the task as complete while
+the test is still failing, deferred or not.
