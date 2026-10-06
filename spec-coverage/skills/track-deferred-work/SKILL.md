@@ -1,6 +1,6 @@
 ---
 name: track-deferred-work
-description: Record work the user explicitly defers ("do that later", "not now", "note it for when X happens") as a file in the project's deferred-work directory, instead of letting it evaporate once the conversation moves on. Also covers a stuck failing test — prompt the user before recording it as deferred, never do so silently — and surfacing a stale deferred-work entry when starting new work that just resolved its blocking condition. Use whenever the user defers something rather than dropping it, when a test failure can't be fixed and needs the user's decision, or when starting a task that might unblock previously deferred work.
+description: Record work the user explicitly defers ("do that later", "not now", "note it for when X happens") as a file in the project's deferred-work directory, instead of letting it evaporate once the conversation moves on. Also covers a stuck failing test — prompt the user before recording it as deferred, never do so silently — surfacing a stale deferred-work entry when starting new work that just resolved its blocking condition, and — before executing any deferred-work entry — getting the user to answer the entry's open "Decisions to make" first. Use whenever the user defers something rather than dropping it, when a test failure can't be fixed and needs the user's decision, when starting a task that might unblock previously deferred work, or whenever the user asks to implement, pick up or execute an existing todo.
 ---
 
 # Track deferred work
@@ -32,6 +32,31 @@ File name: a short kebab-case slug of the deferred thing (e.g.
   OAuth credentials configured yet"), not just "later".
 - Where in the codebase it would naturally be wired up, so picking it back
   up later doesn't require re-deriving context.
+- **Decisions to make before implementing** — a section of its own (see
+  below). Always include it: list every choice whose answer changes what
+  gets built, or write `None` if there truly are none.
+
+### The "Decisions to make" section
+
+Anything the deferral left open — a layout or naming choice, a data
+question, which of two approaches, how an edge case should behave — goes
+here as a checklist item, not buried in prose. Each item is one question
+plus its realistic options and, when there's a sensible default, a
+recommendation:
+
+```markdown
+## Decisions to make before implementing
+
+- [ ] Where do the chips go? Options: the same one-line row as the programs
+  (recommended: keeps the card's height), or a second row.
+- [ ] Which types are listed? Options: every type the coach has ever listed,
+  or only those with upcoming dates.
+```
+
+Open items are `- [ ]`. A resolved one is changed in place to
+`- [x] <question> → <answer> (<date>)`, so the file always shows what was
+decided and what still isn't. Decisions are about what to build, not
+how — leave implementation details you can settle yourself out of it.
 
 Don't just mention the deferral in conversation and move on — the file is
 what makes it durable.
@@ -45,6 +70,35 @@ than leaving it stale.
 
 Delete the file once the deferred work is actually done, in the same
 change that does it.
+
+## Before executing a deferred item: resolve its decisions first
+
+When the user asks to implement, pick up or execute a deferred-work entry
+(or you start work that is really that entry), **do not start building
+until its "Decisions to make" section has no open items.** Specifically:
+
+1. Read the file's "Decisions to make before implementing" section. An
+   entry written before this section existed has none — read its prose
+   (such as an "Open points" list) for decisions, add the section to the
+   file, and treat them the same way.
+2. If any item is open (`- [ ]`), make no code or doc edits yet. Ask the
+   user to resolve them — in one batched round (e.g. AskUserQuestion,
+   several questions per call), each with its options and the recommended
+   one first. Don't trickle them out one at a time across turns, and
+   don't answer them yourself.
+3. Record each answer in the file straight away, changing the item to
+   `- [x] <question> → <answer> (<date>)`.
+4. If the user says "you pick" or "whatever you think", that is their
+   answer: record your chosen option with a note that it was picked on
+   their go-ahead, so the choice stays visible.
+5. Only when no `- [ ]` item remains, proceed with the work (still subject
+   to the project's usual approval and clarifying-question rules).
+6. If a new decision turns up mid-implementation that the file didn't
+   anticipate, stop, add it as an open item, and ask before continuing.
+
+A section that says `None` needs no questions, but state that you checked
+it. The resolved section stays in the file until the file is deleted with
+the finished work.
 
 ## Failing tests are not deferrable on your own judgment
 
