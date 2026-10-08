@@ -1,8 +1,20 @@
 {
   "name": "jaccozilla-plugins",
-  "owner": { "name": "jaccozilla" },
+  "owner": {
+    "name": "jaccozilla"
+  },
   "plugins": [
-    { "name": "spec-coverage", "source": "./spec-coverage" },
-    { "name": "design-system", "source": "./design-system" }
+    {
+      "name": "spec-coverage",
+      "source": "./spec-coverage"
+    },
+    {
+      "name": "design-system",
+      "source": "./design-system"
+    },
+    {
+      "name": "gradle-workflow",
+      "source": "./gradle-workflow"
+    }
   ]
 }

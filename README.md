@@ -30,6 +30,20 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
     light/dark color scheme from a seed color or an image via the
     [Material Theme Builder](https://material-foundation.github.io/material-theme-builder/)
     web tool, then applies it into the project's own theme file.
+- `gradle-workflow/` — a quiet gradle workflow for Claude Code.
+  - `bin/gradle-quiet-with-summary.sh` (on the Bash tool's PATH while the plugin is
+    enabled) runs `./gradlew` from the project root with full output in
+    `build/logs/` and only milestones plus a short summary on stdout.
+  - `statusline.sh` — a status line showing the state of such a run, read from
+    `build/logs/` in the session's working directory (latest gradle task, finished
+    tests, elapsed time, result for two minutes afterwards), plus the running docker
+    stacks. Prints nothing when there is nothing to show. A `SessionStart` hook
+    (`hooks/ensure-statusline.mjs`) copies it into the plugin data directory and points
+    `statusLine` in the user's `settings.json` at it, unless `statusLine` is already
+    set to something else.
+  - `rules/*.md` — token-efficiency and test-failure rules, printed into the session
+    context by a second `SessionStart` hook (`hooks/inject-rules.mjs`), since plugins
+    can't ship `.claude/rules` files.
 
 ## Consuming this marketplace
 
@@ -39,6 +53,7 @@ From any project (or globally), in Claude Code:
 /plugin marketplace add jaccozilla/claude-plugins
 /plugin install spec-coverage@jaccozilla-plugins
 /plugin install design-system@jaccozilla-plugins
+/plugin install gradle-workflow@jaccozilla-plugins
 ```
 
 While iterating locally (both repos checked out as siblings), you can point at the local path instead so edits take effect without a git round-trip:

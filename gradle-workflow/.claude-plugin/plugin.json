@@ -1,0 +1,1 @@
+{ "name": "gradle-workflow", "version": "0.3.0", "description": "Gradle workflow for Claude Code: a quiet gradle wrapper (gradle-quiet-with-summary.sh on PATH), a status line for its runs plus the running docker stacks, and token-efficiency / test rules injected at session start" }
