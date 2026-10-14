@@ -98,7 +98,7 @@ reference names something mechanically checkable.
 
 Run the project's `verifySpecCoverage` task (found in step 1 above). Its
 failure message (if any) already lists exactly what's missing, in up to
-five categories:
+seven categories:
 
 - **`spec(s) with no implementing test`** — go to Step 2.
 - **`test(s) referencing a nonexistent spec`** — go to Step 3.
@@ -107,6 +107,9 @@ five categories:
 - **`spec(s) with an uncovered Variants/states entry`** (only on a plugin
   version with variant checking) — go to Step 5.
 - **`test(s) referencing a nonexistent variant`** (same) — go to Step 5.
+- **`spec(s) using an avoided glossary term`** or **`spec(s) listing a
+  term with no glossary entry`** (only if the project sets `glossaryFile`)
+  — not a test/spec coverage problem; go to Step 5b.
 
 If it passes cleanly, skip straight to Step 6 (drift reconciliation) — the
 mechanical gaps are the cheap, unambiguous half of this skill's job; drift
@@ -196,6 +199,20 @@ test/case rather than leaving it pointing at nothing — but confirm with the
 user first, since deleting test coverage isn't something to do silently.
 
 Re-run `verifySpecCoverage` after either fix.
+
+## Step 5b: Glossary violations — hand off to the glossary skills
+
+These failures mean the spec's wording disagrees with the project's
+product/UI glossary, not that a test is missing. Don't reword a spec
+unilaterally: the check only reads a spec's quoted and bold wording, so
+the offending word is inside quotes or bold — if it's actually a label the
+UI string uses, the string may need changing first (see [[glossary-check]]).
+Use [[glossary-check]] to list every hit, propose the fix per
+spec (swap the avoided word for its canonical term), and apply it after the
+user agrees — or use [[rename-term]] if the same word recurs across many
+specs. For a `terms:` entry with no glossary entry, either the term is
+misspelled (fix the spec) or the glossary is missing it ([[define-term]]).
+Re-run `verifySpecCoverage` after.
 
 ## Step 6: Reconcile prose/behavior drift (judgment, not mechanical)
 

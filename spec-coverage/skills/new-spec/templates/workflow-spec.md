@@ -4,6 +4,12 @@ Replace every <...> placeholder and delete this comment block before writing
 the file.
 
 - Omit `targets:` entirely if the project doesn't use per-target scoping.
+- Omit `terms:` entirely if the project has no product/UI glossary or its
+  specs don't track glossary dependencies (see `define-term`). Otherwise list
+  every glossary term this spec relies on, spelled exactly as the glossary's
+  headings. Put on-screen text in "quotes" and named controls in **bold**, using
+  the glossary's UI labels (never an `Avoid` word) — only quoted/bold text is
+  checked against the glossary; the rest of the body is plain prose.
 - The capability statement is 1-2 sentences of plain-language product
   behavior — never a click-by-click Given/When/Then walkthrough, never
   button-label-exact step numbering.
@@ -19,6 +25,7 @@ the file.
 -->
 ---
 targets: [<target-a>, <target-b>]
+terms: [<Glossary term>, <Glossary term>]
 ---
 
 # <Workflow name>

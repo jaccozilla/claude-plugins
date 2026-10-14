@@ -24,6 +24,19 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
     makes the user resolve an entry's open decisions before it is
     executed, and — only with explicit user sign-off — files a stuck
     failing test under a `test-failures/` subdirectory.
+  - `skills/update-spec/SKILL.md` — edits an existing spec while following
+    the glossary's displayed-wording convention (only "quoted" and **bold**
+    text is checked), keeping `terms:` front matter and test links honest.
+  - `skills/define-term/SKILL.md` — adds or updates an entry in the
+    project's product/UI glossary (canonical nouns, verbs, labels, and the
+    synonyms to avoid), checking for collisions first; ships a glossary
+    template.
+  - `skills/glossary-check/SKILL.md` — reports uses of avoided synonyms
+    in a spec's quoted/bold wording and in UI strings, near-variants, unlisted recurring terms, and bad `terms:` front matter
+    across specs and UI strings.
+  - `skills/rename-term/SKILL.md` — renames a term across the glossary,
+    specs, UI strings, and tests after showing the planned edits for
+    approval; never touches code identifiers.
 - `design-system/` — skills for generating and applying Material 3 color
   schemes.
   - `skills/build-color-scheme/SKILL.md` — generates a full Material 3

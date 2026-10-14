@@ -9,6 +9,12 @@ writing the file.
   component on its own, not just observable incidentally through a page
   test.
 - Omit `targets:` entirely if the project doesn't use per-target scoping.
+- Omit `terms:` entirely if the project has no product/UI glossary or its
+  specs don't track glossary dependencies (see `define-term`). Otherwise list
+  every glossary term this spec relies on, spelled exactly as the glossary's
+  headings. Put on-screen text in "quotes" and named controls in **bold**, using
+  the glossary's UI labels (never an `Avoid` word) — only quoted/bold text is
+  checked against the glossary; the rest of the body is plain prose.
 - List distinct variants/states (open/closed, empty/loaded/error,
   selected/unselected, narrow/wide layout, etc.) as their own bullets under
   "Variants/states" if the component has any — omit that section entirely
@@ -32,6 +38,7 @@ writing the file.
 -->
 ---
 targets: [<target-a>, <target-b>]
+terms: [<Glossary term>, <Glossary term>]
 ---
 
 # <Component name>

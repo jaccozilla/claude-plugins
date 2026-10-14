@@ -45,6 +45,14 @@ writing anything, find the actual configuration:
    narrow/wide layout variant, an empty/loading/error convention, etc.)
    before writing a word of the spec — see Step 2.
 
+5. Check whether the project keeps a product/UI glossary (a `glossary.md`
+   -style file under `docs/`, a `glossaryFile` set in the `specCoverage { }`
+   block, or one named in `CLAUDE.md`; format and discovery details are in
+   [[define-term]]). If one exists, read it in full before writing a word
+   of the spec — see Step 2. If the project's existing specs carry a
+   `terms:` front-matter line, this project tracks which glossary terms each
+   spec depends on, and the new spec should too.
+
 If discovery turns up an established pattern the new component/page/
 workflow should follow but the implementation doesn't yet, say so plainly
 in your report (Step 4) rather than silently writing a spec that describes
@@ -111,6 +119,29 @@ silently describes inconsistent behavior as if no pattern existed, and
 don't force conformance to a pattern that genuinely doesn't fit without
 flagging the mismatch to the user first.
 
+If the discovery step found a glossary, write the spec in its canonical
+terms, following the **displayed-wording convention**: the build check reads
+only a spec's "quoted" and **bold** text, so mark up anything the reader
+sees on screen — put a label, message or other literal in double quotes
+(`shows "Sign in"`) and a named control, option or tab in bold (`taps
+**Archive**`), always spelled as the glossary's `UI label` (or heading when
+there's no label). Leave everything else — behavior, structure, internals —
+as plain prose, and don't quote or bold a word just for emphasis, since
+that puts it under the check. Never put a word from a term's `Avoid` list
+inside quotes or bold. In plain prose, still use the canonical term for the
+concept. Pick one verb per user intent per the glossary's verb entries.
+See [[update-spec]] for the same rules when editing an existing spec.
+Entries marked `Status: proposed` are unresolved conflicts: don't treat
+them as binding. Use whichever wording the project's existing specs use
+most for that concept, and name the open entry in your Step 4 report
+instead of silently picking a side. If the spec needs a concept the
+glossary doesn't have, don't quietly coin a
+word — use the most natural wording, note the new term in your Step 4
+report, and offer [[define-term]] to add it. If the project uses `terms:`
+front matter, list every glossary term the spec relies on there (e.g.
+`terms: [Workspace, Delete]`) and nothing that isn't in the glossary;
+otherwise omit the line entirely, same as `targets:`.
+
 Copy the matching template, replace every placeholder with real content
 distilled from what the user asked for, and drop `targets:` front matter
 entirely if the project doesn't use it (don't leave it as an empty or
@@ -147,4 +178,6 @@ without confirming with the user first.
 Show the user the drafted spec (or its path, if written directly), note
 whether it has an implementing test yet, and — if not — mention that running
 `reconcile-e2e-specs` (or the project's `verifySpecCoverage` task) is the
-next step to get one drafted. Don't commit anything yourself unless asked.
+next step to get one drafted. If a glossary exists, also list any term the
+spec needed that the glossary lacks, and any place the spec had to diverge
+from a glossary term and why. Don't commit anything yourself unless asked.

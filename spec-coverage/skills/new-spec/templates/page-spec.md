@@ -4,6 +4,12 @@ state. Replace every <...> placeholder and delete this comment block before
 writing the file.
 
 - Omit `targets:` entirely if the project doesn't use per-target scoping.
+- Omit `terms:` entirely if the project has no product/UI glossary or its
+  specs don't track glossary dependencies (see `define-term`). Otherwise list
+  every glossary term this spec relies on, spelled exactly as the glossary's
+  headings. Put on-screen text in "quotes" and named controls in **bold**, using
+  the glossary's UI labels (never an `Avoid` word) — only quoted/bold text is
+  checked against the glossary; the rest of the body is plain prose.
 - Omit the "Mockup" line if the project doesn't keep design mockups.
 - Each bullet gets its inline test reference once the implementing test
   exists — leave it off (or write `(unimplemented)`) if drafting the spec
@@ -16,6 +22,7 @@ writing the file.
 -->
 ---
 targets: [<target-a>, <target-b>]
+terms: [<Glossary term>, <Glossary term>]
 ---
 
 # <Screen/page name>
