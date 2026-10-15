@@ -30,6 +30,8 @@ The local Supabase stack and a hosted project differ in ways that only show up a
 - A public bucket serves object URLs without any `SELECT` policy. Do not add a broad `SELECT` policy on `storage.objects` for it: that lets any client list every file in the bucket. Give writers an owner-scoped `SELECT` instead (Storage reads a row before deleting or replacing it), for example by matching the first path segment (`storage.foldername(name))[1]`) to `auth.uid()`.
 - If a policy is removed in a later edit, keep its `drop policy if exists` line so a hosted project that already has it loses it too.
 
+- For a bucket used through `com.jaccozilla.kmp:supabase-utils`'s `PublicImageStorage`, also follow that module's `public-image-buckets` pattern (object paths, owner policies, what the integration test should cover). Run `./gradlew syncSharedDocs` in the app, then read `build/shared-docs/INDEX.md`; it lists the pattern for the module version the app uses.
+
 ## Seed data
 
 - Split seeds into reference data every environment needs and fake local-only fixtures. Only reference data may reach a hosted project.
