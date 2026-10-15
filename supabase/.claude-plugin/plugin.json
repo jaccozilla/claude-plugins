@@ -1,0 +1,8 @@
+{
+  "name": "supabase",
+  "version": "0.1.0",
+  "description": "Skills for projects backed by Supabase and deployed to Cloudflare: writing migrations and seeds that behave the same on a hosted project as locally, and deploying a hosted Supabase reset/push plus a Cloudflare Pages site and proxy Worker from a developer machine",
+  "author": {
+    "name": "Jake Walsh"
+  }
+}

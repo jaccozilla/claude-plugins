@@ -57,6 +57,15 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
   - `rules/*.md` — token-efficiency and test-failure rules, printed into the session
     context by a second `SessionStart` hook (`hooks/inject-rules.mjs`), since plugins
     can't ship `.claude/rules` files.
+- `supabase/` — skills for projects backed by Supabase and deployed to Cloudflare.
+  - `skills/hosted-safe-migrations/SKILL.md` — how to write migrations, storage
+    policies and seeds that behave the same on a hosted project as on the local
+    stack (RLS, function `search_path`, extensions schema, idempotent storage
+    statements, narrowed hosted seeds, seeding through the Management API).
+  - `skills/deploy-supabase-cloudflare/SKILL.md` — the manual deploy: hosted
+    database reset or push, release build, `wrangler pages deploy`, optional proxy
+    Worker, and the clean-up afterwards. Reads project specifics from the project's
+    own docs.
 
 ## Consuming this marketplace
 
@@ -67,6 +76,7 @@ From any project (or globally), in Claude Code:
 /plugin install spec-coverage@jaccozilla-plugins
 /plugin install design-system@jaccozilla-plugins
 /plugin install gradle-workflow@jaccozilla-plugins
+/plugin install supabase@jaccozilla-plugins
 ```
 
 While iterating locally (both repos checked out as siblings), you can point at the local path instead so edits take effect without a git round-trip:
