@@ -22,6 +22,14 @@ Don't hardcode a path. Check, in order:
 If neither turns up a convention, default to `docs/todo/` at the project
 root and mention to the user that you're creating it there.
 
+## Big or uncertain work: make a plan instead
+
+A deferral that is really a large multi-step piece of work, or one with many
+open design questions, is better iterated on as a plan than parked as a
+todo. Offer [[plan-work]] (a folder under the deferred-work directory's
+`plan/` subfolder). Plans live apart from todos: a todo is executed once its
+decisions are resolved, a plan only after review passes and explicit approval.
+
 ## Recording a deferred item
 
 File name: a short kebab-case slug of the deferred thing (e.g.

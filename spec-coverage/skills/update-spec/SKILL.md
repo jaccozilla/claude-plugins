@@ -14,7 +14,7 @@ apply as in [[new-spec]].
 **Don't hardcode layout.** Find `specsDir` and the `@Spec` id format from the
 `specCoverage { }` block and a few neighboring specs, as [[new-spec]]
 describes. Then read the **whole** target spec first — its front matter
-(`targets:`, `terms:`), bullets, inline test references and any
+(`roles:`, `targets:`, `terms:`), bullets, inline test references and any
 `Variants/states` section — before changing a line.
 
 ## The displayed-wording convention
@@ -43,6 +43,12 @@ So when writing or changing a bullet:
    still choosing the canonical term for the concept.
 4. Beware that a `Variants/states` bullet's id (`- **wide** — ...`) is bold
    and so is checked; choose ids that aren't avoided words.
+5a. For a page or workflow spec in a project with a roles document ([[define-roles]]),
+   keep `roles:` accurate: if the edit changes who can reach or use the page
+   or flow (a new role may use it, a role is now excluded, a gate moved),
+   update the list, spelled as the roles document's headings. Don't list a
+   role the document lacks; if the edit needs a new one, say so and offer
+   [[define-roles]].
 5. If the project uses `terms:`, keep it accurate: add each glossary term
    the edited spec now relies on and drop one no longer used, spelled as the
    glossary headings. Don't list a term the glossary lacks.

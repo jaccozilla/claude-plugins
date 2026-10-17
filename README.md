@@ -24,6 +24,19 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
     makes the user resolve an entry's open decisions before it is
     executed, and — only with explicit user sign-off — files a stuck
     failing test under a `test-failures/` subdirectory.
+  - `skills/plan-work/SKILL.md` — plans large, multi-step work as a folder
+    under the deferred-work directory's `plan/` subfolder (`plan.md`,
+    `questions.md`, `reviews/`, `specs/`, `steps.md`), asks clarifying
+    questions in several rounds, runs separate review passes (product and use
+    cases, code architecture, security and privacy, data and migrations, UI
+    interaction, specs drafted and reviewed as part of the plan) and a
+    consolidation read, and executes only after the user explicitly approves.
+    Roles come from the project's roles document, confirmed with the user.
+  - `skills/define-roles/SKILL.md` — creates a project's roles document
+    (`docs/roles.md`: one section per role with the same headings) from a
+    survey of the docs, ADRs and code, and keeps it current when a role or a
+    relationship between roles is added, removed or changed, propagating the
+    change to the glossary, specs and ADRs.
   - `skills/update-spec/SKILL.md` — edits an existing spec while following
     the glossary's displayed-wording convention (only "quoted" and **bold**
     text is checked), keeping `terms:` front matter and test links honest.

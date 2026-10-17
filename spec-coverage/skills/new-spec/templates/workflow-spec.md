@@ -3,6 +3,11 @@ Template for a workflow-style spec: a multi-step/cross-screen user flow.
 Replace every <...> placeholder and delete this comment block before writing
 the file.
 
+- `roles:` is required for a workflow spec when the project has a roles
+  document (see `define-roles`): list the roles this workflow is valid for,
+  spelled exactly as that document's role headings, or `[any]` when every
+  role including a signed-out visitor can use it. Omit the line only when the
+  project has no roles document. It is checked by reading, not by the build.
 - Omit `targets:` entirely if the project doesn't use per-target scoping.
 - Omit `terms:` entirely if the project has no product/UI glossary or its
   specs don't track glossary dependencies (see `define-term`). Otherwise list
@@ -24,6 +29,7 @@ the file.
   for every possible screen size.
 -->
 ---
+roles: [<Role>, <Role>]
 targets: [<target-a>, <target-b>]
 terms: [<Glossary term>, <Glossary term>]
 ---

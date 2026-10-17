@@ -3,6 +3,11 @@ Template for a page/screen-style spec: what a single view shows for a given
 state. Replace every <...> placeholder and delete this comment block before
 writing the file.
 
+- `roles:` is required for a page spec when the project has a roles
+  document (see `define-roles`): list the roles this page is valid for,
+  spelled exactly as that document's role headings, or `[any]` when every
+  role including a signed-out visitor can use it. Omit the line only when the
+  project has no roles document. It is checked by reading, not by the build.
 - Omit `targets:` entirely if the project doesn't use per-target scoping.
 - Omit `terms:` entirely if the project has no product/UI glossary or its
   specs don't track glossary dependencies (see `define-term`). Otherwise list
@@ -21,6 +26,7 @@ writing the file.
   section entirely otherwise.
 -->
 ---
+roles: [<Role>, <Role>]
 targets: [<target-a>, <target-b>]
 terms: [<Glossary term>, <Glossary term>]
 ---

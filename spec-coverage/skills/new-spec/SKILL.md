@@ -53,6 +53,15 @@ writing anything, find the actual configuration:
    `terms:` front-matter line, this project tracks which glossary terms each
    spec depends on, and the new spec should too.
 
+6. Check whether the project has a roles document (see [[define-roles]]:
+   `docs/roles.md` or the file its agent-instructions name). If so, read it:
+   every **page** and **workflow** spec records the roles it is valid for.
+   Work out which from the roles document and from how the page or flow is
+   actually gated (route guard, policy, sign-in requirement); if you cannot
+   tell, ask the user rather than guessing. A project with no roles document
+   omits the line; offer [[define-roles]] if the spec is about who may do
+   something.
+
 If discovery turns up an established pattern the new component/page/
 workflow should follow but the implementation doesn't yet, say so plainly
 in your report (Step 4) rather than silently writing a spec that describes
@@ -141,6 +150,13 @@ report, and offer [[define-term]] to add it. If the project uses `terms:`
 front matter, list every glossary term the spec relies on there (e.g.
 `terms: [Workspace, Delete]`) and nothing that isn't in the glossary;
 otherwise omit the line entirely, same as `targets:`.
+
+For a page or workflow spec, add `roles: [...]` front matter naming the roles
+it is valid for, spelled exactly as the roles document's headings (or
+`[any]` for every role, signed-out visitor included). A role listed there
+that the roles document lacks is an error: stop and ask, or run
+[[define-roles]] first if the role is genuinely new. Component specs carry no
+`roles:` line; they are valid wherever a page or workflow that embeds them is.
 
 Copy the matching template, replace every placeholder with real content
 distilled from what the user asked for, and drop `targets:` front matter
