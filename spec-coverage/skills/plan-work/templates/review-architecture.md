@@ -15,6 +15,12 @@ Pass run: <date>. Read: <plan files, the product review, the project's architect
 
 - <Decision, and whether to write an ADR (confirm with the user first if the project requires it).>
 
+## Draft ADRs
+
+<Each draft in the plan's `adr/` folder, and where it lands: the real ADR directory, number, and the step that moves it. Or "None".>
+
+- `adr/<file>.md` → <real path>, moved by step <n>
+
 ## Findings
 
 - **[blocking | should-fix | note]** <Finding.> Decision: <...>.

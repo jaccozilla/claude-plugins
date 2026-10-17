@@ -34,7 +34,7 @@ Status: draft
 
 - [ ] Product and use cases (`reviews/product.md`)
 - [ ] UI interaction, with prototype in `prototype/` (`reviews/ui-interaction.md`)
-- [ ] Code architecture (`reviews/architecture.md`)
+- [ ] Code architecture, with any draft ADRs in `adr/` (`reviews/architecture.md`)
 - [ ] Security and privacy (`reviews/security.md`)
 - [ ] Data and migrations (`reviews/data.md`)
 - [ ] Specs drafted in `specs/` and reviewed (`reviews/specs.md`)

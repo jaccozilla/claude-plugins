@@ -31,6 +31,7 @@ docs/todo/plan/<slug>/
     specs.md
   prototype/       throwaway HTML prototype of the screens (index.html)
   specs/           draft specs for the plan (pages, workflows, components)
+  adr/             draft ADRs for decisions the plan makes
   steps.md         the ordered work, written after the passes
 ```
 
@@ -102,7 +103,8 @@ file, e.g. accessibility, performance, i18n):
   security or architecture question.
 - **Code architecture** (`architecture.md`): module and layer boundaries,
   where logic lives, what existing components, patterns and ADRs to reuse or
-  extend, what is genuinely new and whether a new ADR is warranted.
+  extend, what is genuinely new and whether a new ADR is warranted. Draft
+  each warranted ADR (see below).
 - **Security and privacy** (`security.md`): who can see or change what, the
   authorization boundary (row level security, not UI checks), exposure of
   personal data, abuse and misuse cases, what is logged or cached.
@@ -182,6 +184,20 @@ what a role that should not have access sees. Roles the plan introduces or
 changes are called out as decisions, and updating the roles document
 ([[define-roles]]) is a step of the plan.
 
+### ADRs are part of the plan
+
+Part of the work may be a decision that deserves an ADR. Write it **in the
+plan's `adr/` folder**, in the project's ADR format and numbering (read its
+existing ADRs first; use the next free number, noting that another change may
+take it before this plan lands), not in the project's real ADR directory: until
+the plan is built the decision is a proposal and may change. Confirm with the
+user first if the project requires that before writing an ADR. Mark each draft
+`Status: proposed` (or the project's equivalent) and list it in
+`reviews/architecture.md` with where it will land. Later passes may add or
+overturn ADRs; keep the drafts current. The step that implements the decision
+moves the ADR into the real ADR directory (renumbering if needed, fixing links
+to it, and setting its status to accepted) in the same change.
+
 ### Specs are part of the plan
 
 Once the product and UI passes (including the prototype) have settled behavior, think through which
@@ -218,7 +234,8 @@ Only now, break the work into ordered steps. Each step should be small
 enough to build and verify on its own, say what it changes, name the specs,
 tests and docs that ship with it (per the project's own rules), and list what
 it depends on. Name the prototype's settled decisions in the steps that build each screen. Include the move of each draft spec into the real specs directory with its
-test. Mark which steps could be deferred as separate todos.
+test, and the move of each draft ADR into the real ADR directory with the step
+that implements it. Mark which steps could be deferred as separate todos.
 
 ### 5. Ask for approval
 
@@ -239,8 +256,9 @@ drifts from the plan, update the plan first and say so.
 ### 7. Finishing
 
 Delete the plan's folder in the same change that completes its last step.
-Anything that outlives the plan goes where it belongs: decisions that
-deserve one into an ADR (confirming with the user first if the project
+Anything that outlives the plan goes where it belongs: decisions into the
+ADRs already moved from `adr/` (a decision that only surfaced during
+execution gets a new ADR, confirming with the user first if the project
 requires it), behavior into specs, and any step the user chose to defer into
 a todo via [[track-deferred-work]].
 
