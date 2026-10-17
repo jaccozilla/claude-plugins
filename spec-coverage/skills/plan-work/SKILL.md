@@ -1,6 +1,6 @@
 ---
 name: plan-work
-description: Plan a large, multi-step piece of work as a folder under the deferred-work directory's plan/ subfolder (e.g. docs/todo/plan/<slug>/), iterating on it with the user and reviewing it in separate passes (code architecture, security and privacy, UI interaction, data and migrations) before any code is written. Use when the user asks for a plan, says a piece of work is too big or too uncertain for a single todo, wants to think through a feature before building it, or asks to review, revise, approve or execute an existing plan. Also use when a todo has grown into several steps with open design questions.
+description: Plan a large, multi-step piece of work as a folder under the deferred-work directory's plan/ subfolder (e.g. docs/todo/plan/<slug>/), iterating on it with the user and reviewing it in separate passes (code architecture, security and privacy, UI interaction, data and migrations, performance) before any code is written. Use when the user asks for a plan, says a piece of work is too big or too uncertain for a single todo, wants to think through a feature before building it, or asks to review, revise, approve or execute an existing plan. Also use when a todo has grown into several steps with open design questions.
 ---
 
 # Plan work
@@ -28,6 +28,7 @@ docs/todo/plan/<slug>/
     architecture.md
     security.md
     data.md
+    performance.md
     specs.md
   prototype/       throwaway HTML prototype of the screens (index.html)
   specs/           draft specs for the plan (pages, workflows, components)
@@ -110,6 +111,24 @@ file, e.g. accessibility, performance, i18n):
   personal data, abuse and misuse cases, what is logged or cached.
 - **Data and migrations** (`data.md`): schema, policies, indexes, seeds,
   hosted-safe migration rules, existing data, and rollback.
+- **Performance** (`performance.md`): will it stay fast at the expected load?
+  Runs after the data pass because it judges the real queries and schema.
+  For each hot path (the screens and actions used most or touching the most
+  data) ask: what is **cachable** (data that rarely changes or is shared
+  across users: where it is cached, what invalidates it, and what must never
+  be served stale or across users); what is **batchable** (N+1 queries, several
+  requests that could be one, writes that could be bulk, independent calls that
+  could run in parallel); what can be **paginated, limited or lazy-loaded**
+  instead of loaded up front; which **indexes** the queries need and whether
+  row level security policies slow them; what is worth **precomputing**
+  (summary table, counter, materialized view) versus computing on read; what
+  **bundle, image and rendering** cost the prototype implies (long lists,
+  re-renders); what can leave the request path (**background work**, debounce,
+  throttle, backoff); and what **perceived speed** tricks fit (skeletons,
+  optimistic updates, prefetch). State the expected load and a budget, and how
+  it will be measured after building (query plans, timings, a large seeded
+  dataset). Findings feed back into the data and architecture passes: a new
+  index or summary table is a data change, a cache layer may need an ADR.
 - **Specs** (`specs.md`): see below.
 
 ### Prototype the UI

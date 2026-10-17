@@ -37,6 +37,7 @@ Status: draft
 - [ ] Code architecture, with any draft ADRs in `adr/` (`reviews/architecture.md`)
 - [ ] Security and privacy (`reviews/security.md`)
 - [ ] Data and migrations (`reviews/data.md`)
+- [ ] Performance (`reviews/performance.md`)
 - [ ] Specs drafted in `specs/` and reviewed (`reviews/specs.md`)
 - [ ] Consolidation read
 

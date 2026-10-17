@@ -28,8 +28,8 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
     under the deferred-work directory's `plan/` subfolder (`plan.md`,
     `questions.md`, `reviews/`, `specs/`, `steps.md`), asks clarifying
     questions in several rounds, runs separate review passes (product and use
-    cases, code architecture, security and privacy, data and migrations, UI
-    interaction, specs drafted and reviewed as part of the plan) and a
+    cases, code architecture, security and privacy, data and migrations,
+    performance, UI interaction, specs drafted and reviewed as part of the plan) and a
     consolidation read, and executes only after the user explicitly approves.
     Roles come from the project's roles document, confirmed with the user.
   - `skills/define-roles/SKILL.md` — creates a project's roles document
