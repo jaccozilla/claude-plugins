@@ -33,10 +33,10 @@ Status: draft
 ## Review passes
 
 - [ ] Product and use cases (`reviews/product.md`)
+- [ ] UI interaction, with prototype in `prototype/` (`reviews/ui-interaction.md`)
 - [ ] Code architecture (`reviews/architecture.md`)
 - [ ] Security and privacy (`reviews/security.md`)
 - [ ] Data and migrations (`reviews/data.md`)
-- [ ] UI interaction (`reviews/ui-interaction.md`)
 - [ ] Specs drafted in `specs/` and reviewed (`reviews/specs.md`)
 - [ ] Consolidation read
 

@@ -24,11 +24,12 @@ docs/todo/plan/<slug>/
   questions.md     open and resolved questions
   reviews/         one file per review pass
     product.md
+    ui-interaction.md
     architecture.md
     security.md
     data.md
-    ui-interaction.md
     specs.md
+  prototype/       throwaway HTML prototype of the screens (index.html)
   specs/           draft specs for the plan (pages, workflows, components)
   steps.md         the ordered work, written after the passes
 ```
@@ -91,6 +92,14 @@ file, e.g. accessibility, performance, i18n):
   is functional, not visual: what the product must do and for whom, before
   how it looks. Write the use cases into `plan.md` as the list the later
   passes and the specs must cover.
+- **UI interaction** (`ui-interaction.md`): the design view of the flows the
+  product pass found: entry points, narrow and wide layouts, empty, loading,
+  error and permission states, existing patterns and component specs to
+  follow, and wording against the glossary. Build and iterate on a quick
+  HTML prototype here (see below). It runs right after the product pass, not
+  late, because layout and interaction answers change what the later passes
+  must cover: a field or state the prototype shows is needed becomes a data,
+  security or architecture question.
 - **Code architecture** (`architecture.md`): module and layer boundaries,
   where logic lives, what existing components, patterns and ADRs to reuse or
   extend, what is genuinely new and whether a new ADR is warranted.
@@ -99,11 +108,50 @@ file, e.g. accessibility, performance, i18n):
   personal data, abuse and misuse cases, what is logged or cached.
 - **Data and migrations** (`data.md`): schema, policies, indexes, seeds,
   hosted-safe migration rules, existing data, and rollback.
-- **UI interaction** (`ui-interaction.md`): the design view of the flows the
-  product pass found: entry points, narrow and wide layouts, empty, loading,
-  error and permission states, existing patterns and component specs to
-  follow, and wording against the glossary.
 - **Specs** (`specs.md`): see below.
+
+### Prototype the UI
+
+Skip this only when the plan has no screens (then the UI pass says
+`Not applicable:` as usual). Otherwise, in the UI interaction pass, write one
+self-contained `prototype/index.html` (inline CSS and JS, fake data, no build
+step or dependencies) covering the flows from the product pass:
+
+- Make it look like the app, not a generic mock. Read the project's styling
+  (stylesheets, theme and design tokens: colors, type, spacing, radii), its
+  design language and pattern docs, and the existing components and component
+  specs, then reproduce them in the prototype: same markup structure and
+  class names or tokens where practical, same component look and behavior for
+  buttons, lists, forms, dialogs and navigation, and glossary wording for
+  labels. Where the plan needs a component the app lacks, build it from the
+  app's existing pieces and flag it as new (it needs its own component spec).
+  Reuse is what makes the layout and interaction answers carry over to the
+  real build. Do not polish beyond that; it is a sketch to click through. It
+  should look close to the app, but it will not be 1:1, and the user should
+  be told so up front.
+- Keep feedback on the big pieces: what is on the screen, how it is
+  arranged, and how the flow moves. If the user asks for minor tweaks to
+  spacing, font, exact colors, alignment or similar, say that this is only a
+  prototype, those details come from the real components and styling in the
+  build, and the time is better spent on layout and interaction. Do not make
+  the change unless it affects a layout or interaction decision. If it does,
+  make it and record the decision.
+- Make it respond at narrow and wide widths, and include the empty, loading,
+  error and no-access states, not just the happy path. If there are several
+  roles, add a simple role switcher so each one's view can be checked.
+- Open it for the user (e.g. `open prototype/index.html`), then iterate in
+  rounds: they react, you change it, until layout and interactions are
+  settled. Ask specific questions ("does the filter belong above the list or
+  in a sheet?") rather than "thoughts?". Record each settled decision in
+  `reviews/ui-interaction.md` and each open one in `questions.md`.
+- Treat what the prototype reveals as findings: data it needs that the plan
+  lacks, steps the use cases missed, states with no owner. Update `plan.md`
+  and the product use cases, and note which later passes are affected.
+
+The prototype is a design aid, not code to ship: the steps build the real
+screens from the project's components and specs, never by porting the
+prototype. It is deleted with the plan folder. Share it as an artifact only if
+the user wants others to look at it.
 
 ### Finding the roles
 
@@ -136,7 +184,7 @@ changes are called out as decisions, and updating the roles document
 
 ### Specs are part of the plan
 
-Once the product and UI passes have settled behavior, think through which
+Once the product and UI passes (including the prototype) have settled behavior, think through which
 specs the work needs (page, workflow and component specs, and updates to
 existing ones) and **draft them in the plan's `specs/` folder**, in the
 project's spec format and wording rules (use [[new-spec]] and its templates;
@@ -169,7 +217,7 @@ and note the result at the end of `plan.md`.
 Only now, break the work into ordered steps. Each step should be small
 enough to build and verify on its own, say what it changes, name the specs,
 tests and docs that ship with it (per the project's own rules), and list what
-it depends on. Include the move of each draft spec into the real specs directory with its
+it depends on. Name the prototype's settled decisions in the steps that build each screen. Include the move of each draft spec into the real specs directory with its
 test. Mark which steps could be deferred as separate todos.
 
 ### 5. Ask for approval
