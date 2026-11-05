@@ -70,6 +70,11 @@ A [Claude Code plugin marketplace](https://docs.claude.com/en/docs/claude-code/p
   - `rules/*.md` — token-efficiency and test-failure rules, printed into the session
     context by a second `SessionStart` hook (`hooks/inject-rules.mjs`), since plugins
     can't ship `.claude/rules` files.
+  - `skills/lint-fix/SKILL.md` — finds problems with IntelliJ's inspections
+    (the IntelliJ MCP server's `lint_files`), fixes them, then formats the files
+    with IntelliJ's code style (`reformat_file`). Covers the files changed in git
+    by default, every source file with `all`, or explicit paths. Needs the project
+    open in IntelliJ.
 - `supabase/` — skills for projects backed by Supabase and deployed to Cloudflare.
   - `skills/hosted-safe-migrations/SKILL.md` — how to write migrations, storage
     policies and seeds that behave the same on a hosted project as on the local
